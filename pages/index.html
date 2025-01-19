@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      rel="shortcut icon"
+      href="../imges/285636_book_icon.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="../style/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitob</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Yangi kitob qo'shish</h2>
+      <form id="book-form">
+        <label for="book-title">Kitob nomi:</label>
+        <input type="text" id="book-title" />
+
+        <label for="book-author">Muallif:</label>
+        <input type="text" id="book-author" />
+
+        <label for="book-description">Yili:</label>
+        <input type="number" id="book-description" />
+
+        <button type="submit">Qo'shish</button>
+      </form>
+
+      <h2>Kitobni qidirish</h2>
+      <input type="text" id="search" placeholder="Kitob nomini kiriting..." />
+      <button id="search-btn">Qidirish</button>
+
+      <h2>Topilgan kitoblar:</h2>
+      <div id="books-container"></div>
+    </div>
+
+    <script type="module" src="../js/main.js"></script>
+  </body>
+</html>
