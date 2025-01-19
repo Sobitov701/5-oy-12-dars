@@ -1,4 +1,4 @@
-import { validateRegister } from "./function.js";
+import { validateRegister } from "../js/function.js";
 
 const form = document.getElementById("register-form");
 const email = document.getElementById("email");
@@ -31,17 +31,12 @@ form.addEventListener("submit", function (event) {
     .then((response) => {
       if (response.status === 200) {
         return response.json();
-      } else {
-        throw new Error("Ro'yxatdan o'tishda xatolik yuz berdi");
       }
     })
     .then((data) => {
       if (data.message === "User registered successfully!") {
-        alert("Muvaffaqiyatli ro'yxatdan o'tdingiz!");
         localStorage.setItem("user", JSON.stringify(user));
         location.assign(`${window.location.origin}/pages/login.html`);
-      } else {
-        throw new Error(data.message);
       }
     })
     .catch((error) => {

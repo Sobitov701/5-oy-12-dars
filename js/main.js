@@ -41,3 +41,16 @@ fetch("https://trello.vimlc.uz/books")
     });
   })
   .catch((error) => console.error("Xatolik:", error));
+
+function showBooks(books) {
+  booksContainer.innerHTML = "";
+  books.forEach((book) => {
+    const bookItem = document.createElement("div");
+    bookItem.innerHTML = `
+      <h2>${book.title}</h2> (${book.year}) ${book.author}
+      <button class="edit">Tahrirlash</button>
+      <button class="delete">O'chirish</button>
+    `;
+    booksContainer.appendChild(bookItem);
+  });
+}

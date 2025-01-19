@@ -1,6 +1,6 @@
-const form = document.getElementById("login-form");
+const loginForm = document.getElementById("login-form");
 
-form.addEventListener("submit", function (event) {
+loginForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
   const email = document.getElementById("email").value;
@@ -14,11 +14,10 @@ form.addEventListener("submit", function (event) {
     body: JSON.stringify({ email, password }),
   })
     .then((response) => {
-      if (response.status === 200) {
-        response.json();
+      if (response.status == 200) {
+        return response.json();
       }
     })
-
     .then((data) => {
       if (data && data.success) {
         alert("Muvaffaqiyatli login");
@@ -26,11 +25,9 @@ form.addEventListener("submit", function (event) {
         localStorage.setItem("username", email);
 
         location.assign(`${window.location.origin}/pages/index.html`);
-      } else {
-        alert("Login yoki parol noto‘g‘ri");
       }
     })
     .catch((error) => {
-      alert("Tizimda xato yuz berdi. Iltimos, qaytadan urinib ko'ring.");
+      alert(error.message);
     });
 });
