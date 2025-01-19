@@ -23,7 +23,12 @@ bookForm.addEventListener("submit", (event) => {
     .then((response) => response.json())
     .then((data) => {
       const bookItem = document.createElement("div");
-      bookItem.innerHTML = `<h2>${data.title}</h2> (${data.year})  ${data.author} <button class="edit">Tahrirlash</button> <button class="delete">O'chirish</button>`;
+      bookItem.classList.add("book-item");
+      bookItem.dataset.id = data.id;
+      bookItem.innerHTML = `
+        <h2>${data.title}</h2> (${data.year}) ${data.author}
+        <button data-id="${data.id}" class="edit">Tahrirlash</button>
+        <button data-id="${data.id}" class="deletebtn">O'chirish</button>`;
       booksContainer.appendChild(bookItem);
     })
     .catch((error) => {
@@ -31,26 +36,42 @@ bookForm.addEventListener("submit", (event) => {
     });
 });
 
-fetch("https://trello.vimlc.uz/books")
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((book) => {
-      const bookItem = document.createElement("div");
-      bookItem.innerHTML = `<h2>${book.title}</h2> (${book.year})  ${book.author} <button class="edit">Tahrirlash</button> <button class="delete">O'chirish</button>`;
-      booksContainer.appendChild(bookItem);
-    });
-  })
-  .catch((error) => console.error("Xatolik:", error));
-
 function showBooks(books) {
   booksContainer.innerHTML = "";
   books.forEach((book) => {
     const bookItem = document.createElement("div");
+    bookItem.classList.add("book-item");
+    bookItem.dataset.id = book.id;
     bookItem.innerHTML = `
       <h2>${book.title}</h2> (${book.year}) ${book.author}
-      <button class="edit">Tahrirlash</button>
-      <button class="delete">O'chirish</button>
-    `;
+      <button data-id="${book.id}" class="edit">Tahrirlash</button>
+      <button data-id="${book.id}" class="deletebtn">O'chirish</button>`;
     booksContainer.appendChild(bookItem);
   });
 }
+
+let deleteButtons = document.querySelectorAll(".deletebtn");
+deleteButtons.length > 0 &&
+  deleteButtons.forEach((deleteButton) => {
+    deleteButton.addEventListener("click", function () {
+      let confirmDelete = confirm("Rostdan ham o'chirmoqchimisiz?");
+      let elementId = this.getAttribute("data-id");
+      if (confirmDelete && elementId) {
+        fetch("https://trello.vimlc.uz/books/${elementId}", {
+          method: "DELETE",
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json();
+            }
+          })
+          .then((data) => {
+            console.log(data);
+            this.parentNode.remove();
+          })
+          .catch((error) => {
+            alert(error.message);
+          });
+      }
+    });
+  });

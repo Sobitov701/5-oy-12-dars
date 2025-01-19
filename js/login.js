@@ -20,8 +20,6 @@ loginForm.addEventListener("submit", function (event) {
     })
     .then((data) => {
       if (data && data.success) {
-        alert("Muvaffaqiyatli login");
-
         localStorage.setItem("username", email);
 
         location.assign(`${window.location.origin}/pages/index.html`);

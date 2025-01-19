@@ -22,13 +22,4 @@ function validateRegister(username, email, password, confirmpassword) {
   return true;
 }
 
-function createCard(data) {
-  return `
-  <div>
-  <h2>${data.title}</h2> (${data.year})  ${data.author} 
-  <button data-id="${data.id}" class="edit">Tahrirlash</button> 
-  <button class="delete">O'chirish</button>
-  </div>`;
-}
-
 export { validateRegister };
